@@ -4,13 +4,13 @@
  */
 package com.example.smart.campus;
 
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
 /**
  *
  * @author Thusiru Kodithuwakku
  */
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-
 @ApplicationPath("/api/v1")
 public class SmartCampusApplication extends Application {
 
