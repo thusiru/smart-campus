@@ -17,7 +17,7 @@ import java.util.Map;
  * @author Thusiru Kodithuwakku
  */
 @Path("/")
-public class DiscoveryResource {
+public class Discovery {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
