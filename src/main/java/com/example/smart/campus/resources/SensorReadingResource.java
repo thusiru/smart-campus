@@ -1,0 +1,68 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.example.smart.campus.resources;
+
+import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.models.Sensor;
+import com.example.smart.campus.models.SensorReading;
+import java.util.UUID;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+/**
+ *
+ * @author Thusiru Kodithuwakku
+ */
+public class SensorReadingResource {
+
+    private final String sensorId;
+
+    public SensorReadingResource(String sensorId) {
+        this.sensorId = sensorId;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getReading() {
+        Sensor sensor = DataStore.sensorDAO.getById(sensorId);
+
+        if (sensor == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("{\"error\":\"Sensor not found\"}").build();
+        }
+
+        return Response.ok(sensor.getReadings()).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addReading(SensorReading sensorReading) {
+        // Ensure request body is not empty
+        if (sensorReading == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"Request body is empty or malformed JSON.\"}").build();
+        }
+
+        Sensor sensor = DataStore.sensorDAO.getById(sensorId);
+
+        if (sensor == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\":\"Cannot add reading. Sensor not found.\"}").build();
+        }
+
+        if (sensorReading.getId() == null || sensorReading.getId().trim().isEmpty()) {
+            sensorReading.setId(UUID.randomUUID().toString());
+        }
+
+        sensor.getReadings().add(sensorReading);
+
+        sensor.setCurrentValue(sensorReading.getValue());
+
+        return Response.status(Response.Status.CREATED).entity(sensorReading).build();
+    }
+}
