@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.RoomNotEmptyException;
 import com.example.smart.campus.models.Room;
 import java.util.UUID;
 import javax.ws.rs.Consumes;
@@ -75,7 +76,7 @@ public class SensorRoom {
         }
 
         if (room.getSensorIds() != null && !room.getSensorIds().isEmpty()) {
-            return Response.status(Response.Status.CONFLICT).entity("Cannot delete room: " + roomId + " because it still contains active sensors.").build();
+            throw new RoomNotEmptyException("Cannot delete room: " + roomId + " because it still contains active sensors.");
         }
 
         DataStore.roomDAO.delete(roomId);
