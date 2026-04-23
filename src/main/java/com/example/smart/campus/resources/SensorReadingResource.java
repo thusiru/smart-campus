@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.DataNotFoundException;
 import com.example.smart.campus.exceptions.SensorUnavailableException;
 import com.example.smart.campus.models.Sensor;
 import com.example.smart.campus.models.SensorReading;
@@ -34,7 +35,7 @@ public class SensorReadingResource {
         Sensor sensor = DataStore.sensorDAO.getById(sensorId);
 
         if (sensor == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("{\"error\":\"Sensor not found\"}").build();
+            throw new DataNotFoundException("Sensor '" + sensorId + "' not found.");
         }
 
         return Response.ok(sensor.getReadings()).build();
@@ -52,8 +53,7 @@ public class SensorReadingResource {
         Sensor sensor = DataStore.sensorDAO.getById(sensorId);
 
         if (sensor == null) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\":\"Cannot add reading. Sensor not found.\"}").build();
+            throw new DataNotFoundException("Cannot add reading. Sensor '" + sensorId + "' not found.");
         }
 
         if (sensorReading.getId() == null || sensorReading.getId().trim().isEmpty()) {
