@@ -31,8 +31,6 @@ public class Discovery {
         collections.put("sensors", "/api/v1/sensors");
 
         metadata.put("collections", collections);
-        metadata.put("version", "1.0");
-        metadata.put("admin_contact", "admin@smartcampus.ac.uk");
 
         return Response.ok(metadata).build();
     }
