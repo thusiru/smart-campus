@@ -4,6 +4,9 @@
  */
 package com.example.smart.campus.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Thusiru Kodithuwakku
@@ -15,6 +18,8 @@ public class Sensor implements BaseModel {
     private String status;
     private double currentValue;
     private String roomId;
+
+    private List<SensorReading> readings = new ArrayList<>();
 
     public Sensor() {
     }
@@ -67,5 +72,13 @@ public class Sensor implements BaseModel {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public List<SensorReading> getReadings() {
+        return readings;
+    }
+
+    public void setReadings(List<SensorReading> readings) {
+        this.readings = readings;
     }
 }
