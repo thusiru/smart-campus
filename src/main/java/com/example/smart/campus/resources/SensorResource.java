@@ -14,6 +14,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -30,6 +31,11 @@ public class SensorResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createSensor(Sensor sensor) {
+        // Ensure request body is not empty
+        if (sensor == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"Request body is empty or malformed JSON.\"}").build();
+        }
+
         // Ensure the sensor has an ID
         if (sensor.getId() == null || sensor.getId().trim().isEmpty()) {
             sensor.setId(UUID.randomUUID().toString());
@@ -74,5 +80,10 @@ public class SensorResource {
         List<Sensor> filteredSensors = allSensors.stream().filter(sensor -> type.equalsIgnoreCase(sensor.getType())).collect(Collectors.toList());
 
         return Response.ok(filteredSensors).build();
+    }
+
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getSensorReadingResource(@PathParam("sensorId") String sensorId) {
+        return new SensorReadingResource(sensorId);
     }
 }

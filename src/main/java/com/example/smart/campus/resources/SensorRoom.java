@@ -34,6 +34,11 @@ public class SensorRoom {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createRoom(Room room) {
+        // Ensure request body is not empty
+        if (room == null) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"Request body is empty or malformed JSON.\"}").build();
+        }
+
         if (room.getId() == null || room.getId().trim().isEmpty()) {
             room.setId(UUID.randomUUID().toString());
         }
