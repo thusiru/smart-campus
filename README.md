@@ -21,7 +21,7 @@ The project requires Java 8 or higher, Apache Maven 3.6+, and Apache Tomcat 9 (o
 First, clone the repository and navigate into the project directory:
 
 ```
-git clone https://github.com/<your-username>/smart-campus.git
+git clone https://github.com/thusiru/smart-campus.git
 cd smart-campus
 ```
 
