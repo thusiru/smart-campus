@@ -17,7 +17,7 @@ public class DataStore {
 
     public static final GenericDAO<Room> roomDAO = new GenericDAO<>(new CopyOnWriteArrayList<>());
     public static final GenericDAO<Sensor> sensorDAO = new GenericDAO<>(new CopyOnWriteArrayList<>());
-    public static final GenericDAO<SensorReading> radingDAO = new GenericDAO<>(new CopyOnWriteArrayList<>());
+    public static final GenericDAO<SensorReading> sensorReadingDAO = new GenericDAO<>(new CopyOnWriteArrayList<>());
 
     private DataStore() {
     }
