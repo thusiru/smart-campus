@@ -15,16 +15,19 @@ import javax.ws.rs.ext.Provider;
  * @author Thusiru Kodithuwakku
  */
 @Provider
-public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
+public class DataConflictExceptionMapper implements ExceptionMapper<DataConflictException> {
 
     @Override
-    public Response toResponse(Throwable exception) {
+    public Response toResponse(DataConflictException exception) {
         ErrorMessage error = new ErrorMessage(
-                "An unexpected internal server error occurred. Please contact support.",
-                500,
-                "https://api.smartcampus.com/docs/errors/internal-server-error"
+                exception.getMessage(),
+                409,
+                "https://api.smartcampus.com/docs/errors/conflict"
         );
 
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(error).type(MediaType.APPLICATION_JSON).build();
+        return Response.status(Response.Status.CONFLICT)
+                .entity(error)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
     }
 }

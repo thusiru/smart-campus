@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.DataConflictException;
 import com.example.smart.campus.exceptions.InvalidPayloadException;
 import com.example.smart.campus.exceptions.LinkedResourceNotFoundException;
 import com.example.smart.campus.models.Room;
@@ -45,7 +46,7 @@ public class SensorResource {
 
         // Prevent duplicate sensor IDs
         if (DataStore.sensorDAO.getById(sensor.getId()) != null) {
-            return Response.status(Response.Status.CONFLICT).entity("{\"error\":\"Sensor with ID '" + sensor.getId() + "' already exists.\"}").build();
+            throw new DataConflictException("Sensor with ID '" + sensor.getId() + "' already exists.");
         }
 
         // Verify the roomId was actually provided in the JSON payload

@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.DataConflictException;
 import com.example.smart.campus.exceptions.DataNotFoundException;
 import com.example.smart.campus.exceptions.InvalidPayloadException;
 import com.example.smart.campus.exceptions.RoomNotEmptyException;
@@ -47,7 +48,7 @@ public class SensorRoom {
         }
 
         if (DataStore.roomDAO.getById(room.getId()) != null) {
-            return Response.status(Response.Status.CONFLICT).entity("{\"error\":\"A room with this ID already exists\"}").build();
+            throw new DataConflictException("Room with ID '" + room.getId() + "' already exists.");
         }
 
         DataStore.roomDAO.add(room);
