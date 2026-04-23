@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.LinkedResourceNotFoundException;
 import com.example.smart.campus.models.Room;
 import com.example.smart.campus.models.Sensor;
 import java.util.List;
@@ -54,7 +55,7 @@ public class SensorResource {
         // Verify the roomId actually exists in the system
         Room room = DataStore.roomDAO.getById(sensor.getRoomId());
         if (room == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("{\"error\":\"Cannot create sensor. Room ID '" + sensor.getRoomId() + "' does not exist.\"}").build();
+            throw new LinkedResourceNotFoundException("Cannot create sensor. Room ID '" + sensor.getRoomId() + "' does not exist.");
         }
 
         // Save the sensor
