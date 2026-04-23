@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.SensorUnavailableException;
 import com.example.smart.campus.models.Sensor;
 import com.example.smart.campus.models.SensorReading;
 import java.util.UUID;
@@ -57,6 +58,10 @@ public class SensorReadingResource {
 
         if (sensorReading.getId() == null || sensorReading.getId().trim().isEmpty()) {
             sensorReading.setId(UUID.randomUUID().toString());
+        }
+
+        if ("MAINTENANCE".equalsIgnoreCase(sensor.getStatus())) {
+            throw new SensorUnavailableException("Sensor '" + sensorId + "' is currently in MAINTENANCE mode and cannot accept new readings.");
         }
 
         sensor.getReadings().add(sensorReading);
