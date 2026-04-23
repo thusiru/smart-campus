@@ -8,6 +8,7 @@ import com.example.smart.campus.data.DataStore;
 import com.example.smart.campus.models.Room;
 import java.util.UUID;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -57,5 +58,23 @@ public class SensorRoom {
         }
 
         return Response.ok(room).build();
+    }
+
+    @DELETE
+    @Path("/{roomId}")
+    public Response deleteRoom(@PathParam("roomId") String roomId) {
+        Room room = DataStore.roomDAO.getById(roomId);
+
+        if (room == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("{\"error\":\"Room not found\"}").build();
+        }
+
+        if (room.getSensorIds() != null && !room.getSensorIds().isEmpty()) {
+            return Response.status(Response.Status.CONFLICT).entity("Cannot delete room: " + roomId + " because it still contains active sensors.").build();
+        }
+
+        DataStore.roomDAO.delete(roomId);
+
+        return Response.noContent().build();
     }
 }
