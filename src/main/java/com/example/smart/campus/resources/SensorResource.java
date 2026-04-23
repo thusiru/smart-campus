@@ -5,9 +5,9 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
-import com.example.smart.campus.exceptions.DataConflictException;
-import com.example.smart.campus.exceptions.InvalidPayloadException;
-import com.example.smart.campus.exceptions.LinkedResourceNotFoundException;
+import com.example.smart.campus.exceptions.core.DataConflictException;
+import com.example.smart.campus.exceptions.core.InvalidPayloadException;
+import com.example.smart.campus.exceptions.domain.LinkedResourceNotFoundException;
 import com.example.smart.campus.models.Room;
 import com.example.smart.campus.models.Sensor;
 import java.util.List;

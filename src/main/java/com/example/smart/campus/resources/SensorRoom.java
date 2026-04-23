@@ -5,10 +5,10 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
-import com.example.smart.campus.exceptions.DataConflictException;
-import com.example.smart.campus.exceptions.DataNotFoundException;
-import com.example.smart.campus.exceptions.InvalidPayloadException;
-import com.example.smart.campus.exceptions.RoomNotEmptyException;
+import com.example.smart.campus.exceptions.core.DataConflictException;
+import com.example.smart.campus.exceptions.core.DataNotFoundException;
+import com.example.smart.campus.exceptions.core.InvalidPayloadException;
+import com.example.smart.campus.exceptions.domain.RoomNotEmptyException;
 import com.example.smart.campus.models.Room;
 import java.util.UUID;
 import javax.ws.rs.Consumes;

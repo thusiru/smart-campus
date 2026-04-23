@@ -5,9 +5,9 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
-import com.example.smart.campus.exceptions.DataNotFoundException;
-import com.example.smart.campus.exceptions.InvalidPayloadException;
-import com.example.smart.campus.exceptions.SensorUnavailableException;
+import com.example.smart.campus.exceptions.core.DataNotFoundException;
+import com.example.smart.campus.exceptions.core.InvalidPayloadException;
+import com.example.smart.campus.exceptions.domain.SensorUnavailableException;
 import com.example.smart.campus.models.Sensor;
 import com.example.smart.campus.models.SensorReading;
 import java.util.UUID;

@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.smart.campus.exceptions;
+package com.example.smart.campus.exceptions.domain;
 
 /**
  *
  * @author Thusiru Kodithuwakku
  */
-public class InvalidPayloadException extends RuntimeException {
+public class RoomNotEmptyException extends RuntimeException {
 
-    public InvalidPayloadException(String message) {
+    public RoomNotEmptyException(String message) {
         super(message);
     }
 }
