@@ -6,6 +6,7 @@ package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
 import com.example.smart.campus.exceptions.DataNotFoundException;
+import com.example.smart.campus.exceptions.InvalidPayloadException;
 import com.example.smart.campus.exceptions.RoomNotEmptyException;
 import com.example.smart.campus.models.Room;
 import java.util.UUID;
@@ -38,7 +39,7 @@ public class SensorRoom {
     public Response createRoom(Room room) {
         // Ensure request body is not empty
         if (room == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"Request body is empty or malformed JSON.\"}").build();
+            throw new InvalidPayloadException("Request body is empty or malformed JSON.");
         }
 
         if (room.getId() == null || room.getId().trim().isEmpty()) {

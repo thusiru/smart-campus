@@ -6,6 +6,7 @@ package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
 import com.example.smart.campus.exceptions.DataNotFoundException;
+import com.example.smart.campus.exceptions.InvalidPayloadException;
 import com.example.smart.campus.exceptions.SensorUnavailableException;
 import com.example.smart.campus.models.Sensor;
 import com.example.smart.campus.models.SensorReading;
@@ -47,7 +48,7 @@ public class SensorReadingResource {
     public Response addReading(SensorReading sensorReading) {
         // Ensure request body is not empty
         if (sensorReading == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"Request body is empty or malformed JSON.\"}").build();
+            throw new InvalidPayloadException("Request body is empty or malformed JSON.");
         }
 
         Sensor sensor = DataStore.sensorDAO.getById(sensorId);

@@ -5,6 +5,7 @@
 package com.example.smart.campus.resources;
 
 import com.example.smart.campus.data.DataStore;
+import com.example.smart.campus.exceptions.InvalidPayloadException;
 import com.example.smart.campus.exceptions.LinkedResourceNotFoundException;
 import com.example.smart.campus.models.Room;
 import com.example.smart.campus.models.Sensor;
@@ -34,7 +35,7 @@ public class SensorResource {
     public Response createSensor(Sensor sensor) {
         // Ensure request body is not empty
         if (sensor == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"Request body is empty or malformed JSON.\"}").build();
+            throw new InvalidPayloadException("Request body is empty or malformed JSON.");
         }
 
         // Ensure the sensor has an ID
@@ -49,7 +50,7 @@ public class SensorResource {
 
         // Verify the roomId was actually provided in the JSON payload
         if (sensor.getRoomId() == null || sensor.getRoomId().trim().isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"A valid roomId must be provided.\"}").build();
+            throw new InvalidPayloadException("A valid room id must be provided.");
         }
 
         // Verify the roomId actually exists in the system
